@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const app = express();
-const apiRoutes = require('./routes/api-routes');
+const laboratoriosRoutes = require('./routes/laboratorios-routes');
+const examesRoutes = require('./routes/exames-routes');
+const associateRoutes = require('./routes/associate-routes')
 
 app.use(bodyParser.urlencoded({
   extended: true,
@@ -23,7 +25,9 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => res.send('Hello World with Express'));
 
-app.use('/api', apiRoutes);
+app.use('/api', laboratoriosRoutes);
+app.use('/api', examesRoutes);
+app.use('/api', associateRoutes);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
