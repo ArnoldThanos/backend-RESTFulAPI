@@ -56,7 +56,7 @@ Create `Exames` instance using:
 
 ## Architecture REST
 
-- Laboratory list - GET: http://localhost:3000/api/laboratorios (locally)
+- Laboratory list - GET: http://localhost:3000/api/laboratorios (locally) \
                          https://restful-api-dasa.herokuapp.com/api/laboratorios 
 
    .  If success returns all laboratories in the database, each laboratory with a JSON format.
