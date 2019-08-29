@@ -56,46 +56,57 @@ Create `Exames` instance using:
 
 ## Architecture REST
 
-- Laboratory list - GET: http://localhost:3000/api/laboratorios
+- Laboratory list - GET: http://localhost:3000/api/laboratorios (locally) \
+                         https://restful-api-dasa.herokuapp.com/api/laboratorios (deployed)\
 
    .  If success returns all laboratories in the database, each laboratory with a JSON format.
    
-- Add a laboratory - POST: http://localhost:3000/api/laboratorios/new
+- Add a laboratory - POST: http://localhost:3000/api/laboratorios/new (locally)\
+                           https://restful-api-dasa.herokuapp.com/api/laboratorios/new (deployed)\
   
   . Adds a new laboratory to our database, needs to send nome, endereco (exames are optional ). auto generated ID and status created with a true value as "activo".
   
-- Update a laboratory by ID - PUT: http://localhost:3000/api/laboratorios/:id
+- Update a laboratory by ID - PUT: http://localhost:3000/api/laboratorios/:id (locally)\
+                                   https://restful-api-dasa.herokuapp.com/api/laboratorios/:id (deployed)\
 
   . Update a certain laboratory.
   
-- Delete a laboratory by ID - DELETE: http://localhost:3000/api/laboratorios/:id
+- Delete a laboratory by ID - DELETE: http://localhost:3000/api/laboratorios/:id (locally)\
+                                      https://restful-api-dasa.herokuapp.com/api/laboratorios/:id (deployed)\
 
    . Delete a certain laboratory.
    
-- Exames list - GET: http://localhost:3000/api/exames
-
+- Exames list - GET: http://localhost:3000/api/exames (locally)\
+                     https://restful-api-dasa.herokuapp.com/api/exames (deployed)\
+                     
    .  If success returns all exames in the database, each exam with a JSON format.
    
-- Add a exam- POST: http://localhost:3000/api/exame/new
+- Add a 'exame'- POST: http://localhost:3000/api/exame/new (locally)\
+                       https://restful-api-dasa.herokuapp.com/api/exame/new (deployed)\
   
-  . Adds a new exame to our database, needs to send nome, tipo. Auto generated ID and status created with a true value as "activo".
+  . Adds a new 'exame' to our database, needs to send nome, tipo. Auto generated ID and status created with a true value as "activo".
   
-- Update a exame by ID - PUT: http://localhost:3000/api/exame/:id
-
-  . Update a certain exame.
+- Update a 'exame' by ID - PUT: http://localhost:3000/api/exame/:id (locally)\
+                                https://restful-api-dasa.herokuapp.com/api/exame/:id (deployed)\
+  . Update a certain 'exame'.
   
-- Delete a exame by ID - DELETE: http://localhost:3000/api/laboratorios/:id
-
-   . Delete a certain exame.
+- Delete a 'exame' by ID - DELETE: http://localhost:3000/api/laboratorios/:id (locally)\
+                                   https://restful-api-dasa.herokuapp.com/api/laboratorios/:id(deployed)\
+   . Delete a certain 'exame'.
    
-- Associate a exame by ID to a laboratory - PUT: http://localhost:3000/api/exame/:id/associate
-
-  . Associate an ID exame to a laboratory, needs to send laboratory ID. Only associate if laboratory and exam are as "activo"
+- Associate a 'exame' by ID to a laboratory - PUT: http://localhost:3000/api/exame/:id/associate (locally)\
+                                                   https://restful-api-dasa.herokuapp.com/api/exame/:id/associate (deployed)\
+  . Associate an ID 'exame' to a laboratory, needs to send laboratory ID. Only associate if laboratory and exam are as "activo"
   
-- Unassociate a exame by ID to a laboratory - PUT: http://localhost:3000/api/exame/:id/unassociate
+- Unassociate a 'exame' by ID to a laboratory - PUT: http://localhost:3000/api/exame/:id/unassociate (locally)\
+                                                     https://restful-api-dasa.herokuapp.com/api/exame/:id/unassociate (deployed)\
+  . Unassociate an ID 'exame' to a laboratory, needs to send laboratory ID. Only unassociate if laboratory and exam are as "activo"
 
-  . Unassociate an ID exame to a laboratory, needs to send laboratory ID. Only unassociate if laboratory and exam are as "activo"
-
+- EndPoint to search a 'exame' - GET: http://localhost:3000/api/search?exameName=radiografia (locally)\
+                                      https://restful-api-dasa.herokuapp.com/api/search?exameName=radiografia (deployed)\
+                                      "radiografia is just an example of search" \
+  . Search a 'exame' name and returns all laboratories associated to that 'exame'.
+  
 ## Tests
 
 They were fully realized in Postman's automated environment, proving the success of each functionality. The tests that were done in this case can be seen in the figure below, just in the left tab. Postman is an extremely useful tool for manually testing or automating testing of any REST API.
