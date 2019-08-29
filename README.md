@@ -103,8 +103,8 @@ Create `Exames` instance using:
   . Unassociate an ID 'exame' to a laboratory, needs to send laboratory ID. Only unassociate if laboratory and exam are as "activo"
 
 - EndPoint to search a 'exame' - GET: http://localhost:3000/api/search?exameName=radiografia (locally)\
-                                      https://restful-api-dasa.herokuapp.com/api/search?exameName=radiografia (deployed)\
-                                      "radiografia is just an example of search" \
+                                      https://restful-api-dasa.herokuapp.com/api/search?exameName=ultrasom (deployed)\
+                                      "ultrasom is just a search example" \
   . Search a 'exame' name and returns all laboratories associated to that 'exame'.
   
 ## Tests
