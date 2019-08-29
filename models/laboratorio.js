@@ -15,9 +15,9 @@ const laboratorioSchema = new Schema({
     type: Boolean,
     default: true,
   },
-  exames: [{ type: Schema.Types.ObjectId, ref: 'Exame' }],
+  exames: [{ type: Schema.Types.ObjectId, ref: 'exame' }],
   create_date: {
-    type: Date, 
+    type: Date,
     default: Date.now,
   },
 });

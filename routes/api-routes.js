@@ -10,6 +10,7 @@ const Laboratorio = require('../models/laboratorio');
 // obter lista de laboratórios ativos
 router.get('/laboratorios', (req, res) => {
   Laboratorio.find()
+    .populate('exames')
     .then((response) => {
       const filteredLabs = response.filter(e => e.status);
       res.json(filteredLabs);
