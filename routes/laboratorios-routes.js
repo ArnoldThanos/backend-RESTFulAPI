@@ -8,11 +8,10 @@ const Laboratorio = require('../models/laboratorio');
 // ------Laboratório:
 // obter lista de laboratórios ativos
 router.get('/laboratorios', (req, res) => {
-  Laboratorio.find()
+  Laboratorio.find({ status: true })
     .populate('exames')
-    .then((response) => {
-      const filteredLabs = response.filter(e => e.status);
-      res.json(filteredLabs);
+    .then((labs) => {
+      res.json(labs);
     })
     .catch((err) => {
       res.json(err);
@@ -48,24 +47,16 @@ router.put('/laboratorio/:id', (req, res) => {
     });
 });
 // remover logicamente um laboratório ativo
+
 router.delete('/laboratorio/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-  Laboratorio.findById(req.params.id)
-    .then((response) => {
-      if (response.status) {
-        Laboratorio.findByIdAndRemove(req.params.id)
-          .then(() => {
-            res.json({ message: `Laboratorio with ${req.params.id} was deleted.` });
-          })
-          .catch((err) => {
-            res.json(err);
-          });
-      } else {
-        res.json({ message: `Laboratorio with ${req.params.id} can't be deleted.` });
-      }
+  const { id } = req.params;
+  Laboratorio.findByIdAndRemove(id, { status: true })
+    .then(() => {
+      res.json({ message: `Laboratorio with ${req.params.id} was deleted.` });
     })
     .catch((err) => {
       res.json(err);

@@ -79,17 +79,17 @@ router.put('/exame/:id/unassociate', (req, res) => {
     });
 });
 
-// Endpoint que faz a busca por nome do exame e retorna todos os laboratorios associados.
+// Endpoint que faz a busca por nome do exame element retorna todos os laboratorios associados.
 
 router.get('/search', (req, res) => {
   const { exameName } = req.query;
   Laboratorio.find()
     .populate('exames')
     .then((response) => {
-      const filteredLabs = response.filter((e) => {
-        for (let i = 0; i < e.exames.length; i += 1) {
-          if (e.exames[i].nome.toLowerCase() === exameName.toLowerCase()) {
-            return e;
+      const filteredLabs = response.filter((element) => {
+        for (let i = 0; i < element.exames.length; i += 1) {
+          if (element.exames[i].nome.toLowerCase() === exameName.toLowerCase()) {
+            return element;
           }
         }
         return null;

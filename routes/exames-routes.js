@@ -8,9 +8,8 @@ const Exame = require('../models/exames');
 // obter lista de exames ativos
 router.get('/exames', (req, res) => {
   Exame.find()
-    .then((response) => {
-      const filteredExams = response.filter(e => e.status);
-      res.json(filteredExams);
+    .then((exams) => {
+      res.json(exams);
     })
     .catch((err) => {
       res.json(err);
@@ -47,19 +46,10 @@ router.delete('/exame/:id', (req, res) => {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-  Exame.findById(req.params.id)
-    .then((response) => {
-      if (response.status) {
-        Exame.findByIdAndRemove(req.params.id)
-          .then(() => {
-            res.json({ message: `Exame with ${req.params.id} was deleted.` });
-          })
-          .catch((err) => {
-            res.json(err);
-          });
-      } else {
-        res.json({ message: `Exame with ${req.params.id} can't be deleted.` });
-      }
+  const { id } = req.params;
+  Exame.findByIdAndRemove(id, { status: true })
+    .then(() => {
+      res.json({ message: `Exame with ${req.params.id} was deleted.` });
     })
     .catch((err) => {
       res.json(err);
