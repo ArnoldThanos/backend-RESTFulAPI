@@ -7,60 +7,51 @@ const Laboratorio = require('../models/laboratorio');
 
 // ------Laboratório:
 // obter lista de laboratórios ativos
-router.get('/laboratorios', (req, res) => {
-  Laboratorio.find({ status: true })
-    .populate('exames')
-    .then((labs) => {
-      res.json(labs);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+router.get('/laboratorios', async (req, res) => {
+  try {
+    const labs = await Laboratorio.find({ status: true }).populate('exames');
+    res.json(labs);
+  } catch (error) {
+    res.json(error);
+  }
 });
 // cadastrar um novo laborário
-router.post('/laboratorio/new', (req, res) => {
-  const {
-    nome, endereco, exames,
-  } = req.body;
-  Laboratorio.create({
-    nome, endereco, exames,
-  })
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+router.post('/laboratorio/new', async (req, res) => {
+  const { nome, endereco, exames } = req.body;
+  try {
+    const response = await Laboratorio.create({ nome, endereco, exames });
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
 });
 // atualizar um laboratório existente
-router.put('/laboratorio/:id', (req, res) => {
+router.put('/laboratorio/:id', async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-  Laboratorio.findByIdAndUpdate(req.params.id, req.body, { runValidators: true })
-    .then(() => {
-      res.json({ message: `Laboratorio with ${req.params.id} is updated successfully.` });
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+  try {
+    await Laboratorio.findByIdAndUpdate(req.params.id, req.body, { runValidators: true });
+    res.json({ message: `Laboratorio with ${req.params.id} is updated successfully.` });
+  } catch (error) {
+    res.json(error);
+  }
 });
 // remover logicamente um laboratório ativo
 
-router.delete('/laboratorio/:id', (req, res) => {
+router.delete('/laboratorio/:id', async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
   const { id } = req.params;
-  Laboratorio.findByIdAndRemove(id, { status: true })
-    .then(() => {
-      res.json({ message: `Laboratorio with ${req.params.id} was deleted.` });
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+  try {
+    await Laboratorio.findByIdAndRemove(id, { status: true });
+    res.json({ message: `Laboratorio with ${req.params.id} was deleted.` });
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 module.exports = router;

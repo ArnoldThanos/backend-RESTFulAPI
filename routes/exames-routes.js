@@ -6,54 +6,50 @@ const Exame = require('../models/exames');
 
 // ----- Exames:
 // obter lista de exames ativos
-router.get('/exames', (req, res) => {
-  Exame.find()
-    .then((exams) => {
-      res.json(exams);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+router.get('/exames', async (req, res) => {
+  try {
+    const exams = await Exame.find();
+    res.json(exams);
+  } catch (error) {
+    res.json(error);
+  }
 });
 // cadastrar um novo exame
-router.post('/exame/new', (req, res) => {
+router.post('/exame/new', async (req, res) => {
   const { nome, tipo } = req.body;
-  Exame.create({ nome, tipo })
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+  try {
+    const response = await Exame.create({ nome, tipo });
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
 });
 // atualizar um exame existente
-router.put('/exame/:id', (req, res) => {
+router.put('/exame/:id', async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-  Exame.findByIdAndUpdate(req.params.id, req.body, { runValidators: true })
-    .then(() => {
-      res.json({ message: `Exame with ${req.params.id} is updated successfully.` });
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+  try {
+    await Exame.findByIdAndUpdate(req.params.id, req.body, { runValidators: true });
+    res.json({ message: `Exame with ${req.params.id} is updated successfully.` });
+  } catch (error) {
+    res.json(error);
+  }
 });
 // remover logicamente um exame ativo
-router.delete('/exame/:id', (req, res) => {
+router.delete('/exame/:id', async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
   const { id } = req.params;
-  Exame.findByIdAndRemove(id, { status: true })
-    .then(() => {
-      res.json({ message: `Exame with ${req.params.id} was deleted.` });
-    })
-    .catch((err) => {
-      res.json(err);
-    });
+  try {
+    await Exame.findByIdAndRemove(id, { status: true });
+    res.json({ message: `Exame with ${req.params.id} was deleted.` });
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 module.exports = router;
